@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,18 +27,15 @@ namespace YP_Egurnova_02_1.Pages
             InitializeComponent();
 
             LoadData();
-            //SetDefaultComboBoxValues();
+            SetDefaultComboBoxValues();
         }
 
         private void LoadData()
         {
-            using (var context = new Egurnova_YP01Entities())
-            {
-                ListRequests.ItemsSource = context.Request.ToList();
-                CmbStatus.ItemsSource = context.StatusType.ToList();
-                CmbClient.ItemsSource = context.Clients.ToList();
-                CmbTechnician.ItemsSource = context.Technicians.ToList();
-            }
+            ListRequests.ItemsSource = Egurnova_YP01Entities.GetContext().Request.ToList();
+            CmbStatus.ItemsSource = Egurnova_YP01Entities.GetContext().StatusType.ToList();
+            CmbClient.ItemsSource = Egurnova_YP01Entities.GetContext().Clients.ToList();
+            CmbTechnician.ItemsSource = Egurnova_YP01Entities.GetContext().Technicians.ToList();
         }
 
         private void SetDefaultComboBoxValues()
@@ -49,41 +47,39 @@ namespace YP_Egurnova_02_1.Pages
 
         private void UpdateUsers()
         {
-            //using (var context = new Egurnova_YP01Entities())
-            //{
-            //    var currentRequests = context.Request.ToList();
 
-            //    if (CmbStatus.SelectedIndex > 0)
-            //    {
-            //        var selectedStatus = (StatusType)CmbStatus.SelectedItem;
-            //        currentRequests = currentRequests.Where(x => x.StatusID == selectedStatus.StatusID).ToList();
-            //    }
+                var currentRequests = Egurnova_YP01Entities.GetContext().Request.ToList();
 
-            //    if (CmbClient.SelectedIndex > 0)
-            //    {
-            //        var selectedClient = (Clients)CmbClient.SelectedItem;
-            //        currentRequests = currentRequests.Where(x => x.ClientID == selectedClient.ClientID).ToList();
-            //    }
+                if (CmbStatus.SelectedIndex > 0)
+                {
+                    var selectedStatus = (StatusType)CmbStatus.SelectedItem;
+                    currentRequests = currentRequests.Where(x => x.StatusID == selectedStatus.StatusID).ToList();
+                }
 
-            //    if (CmbTechnician.SelectedIndex > 0)
-            //    {
-            //        var selectedTechnician = (Technicians)CmbTechnician.SelectedItem;
-            //        currentRequests = currentRequests.Where(x => x.TechniciansID == selectedTechnician.TechnicianID).ToList();
-            //    }
+                if (CmbClient.SelectedIndex > 0)
+                {
+                    var selectedClient = (Clients)CmbClient.SelectedItem;
+                    currentRequests = currentRequests.Where(x => x.ClientID == selectedClient.ClientID).ToList();
+                }
 
-            //    ListRequests.ItemsSource = currentRequests;
-            //}
+                if (CmbTechnician.SelectedIndex > 0)
+                {
+                    var selectedTechnician = (Technicians)CmbTechnician.SelectedItem;
+                    currentRequests = currentRequests.Where(x => x.TechniciansID == selectedTechnician.TechnicianID).ToList();
+                }
+
+                ListRequests.ItemsSource = currentRequests;
         }
 
         private void FilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //UpdateUsers();
+            UpdateUsers();
         }
 
         private void ClearFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            //SetDefaultComboBoxValues();
-            //UpdateUsers();
+            SetDefaultComboBoxValues();
+            UpdateUsers();
         }
     }
 }

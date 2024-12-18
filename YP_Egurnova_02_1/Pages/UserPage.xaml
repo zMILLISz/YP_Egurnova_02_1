@@ -15,5 +15,8 @@
         <Label x:Name="UserRole" Content="Label" HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" Height="37" Width="366" FontSize="16" HorizontalContentAlignment="Center"/>
 
         <Label x:Name="StatisticsLabel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" FontSize="16" />
+
+        <Image x:Name="QRCodeImage" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20" Width="100" Height="100"/>
+        <Label Content="Оцените работу" HorizontalAlignment="Left" Margin="20,441,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Center"/>
     </Grid>
 </Page>
